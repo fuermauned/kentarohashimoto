@@ -64,11 +64,6 @@
   function homePage() {
     const cards = data.works.map(workCard).join("");
     return pageShell(`
-      <section class="home-reel" aria-label="作品リール">
-        <video autoplay muted loop playsinline preload="metadata" poster="${data.works[0].image}">
-          <source src="${data.reel}" type="video/mp4">
-        </video>
-      </section>
       <section class="works-section">
         <div class="display-heading"><h1>WORK</h1><p lang="ja">作品</p></div>
         <div class="work-grid">${cards}</div>
