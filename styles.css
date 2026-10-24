@@ -142,3 +142,27 @@ main { display: grid; gap: var(--space-7); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+/* Context follows the portfolio's existing typography, spacing and rules. */
+.work-title-ja { margin: var(--space-2) 0 0; font-size: 24px; line-height: 1.5; }
+.context-list { border-top: 1px solid var(--color-border); }
+.context-entry { border-bottom: 1px solid var(--color-border); }
+.context-entry-link { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: var(--space-4); align-items: baseline; padding-block: var(--space-4); }
+.context-entry time, .context-article-header time { font-family: var(--font-en); font-size: 14px; line-height: 24px; letter-spacing: .04em; }
+.context-entry h2 { margin: 0; font-size: 20px; line-height: 1.75; font-weight: 400; overflow-wrap: anywhere; }
+.context-article { display: grid; gap: var(--space-6); }
+.context-article-header { display: grid; gap: var(--space-3); }
+.context-article-header h1 { max-width: 760px; margin: 0; font-size: 24px; line-height: 1.5; font-weight: 400; overflow-wrap: anywhere; }
+.context-article-header .label-en { justify-self: start; font-size: 14px; }
+.context-body { max-width: 760px; min-width: 0; line-height: 2; overflow-wrap: anywhere; }
+.context-body section + section { margin-top: var(--space-6); }
+.context-body h2 { margin: 0 0 var(--space-4); font-size: 20px; line-height: 1.75; font-weight: 400; }
+.context-body p { margin: 0; text-indent: 1em; }
+.context-body p + p { margin-top: var(--space-3); }
+.context-back { justify-self: start; border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-1); font-size: 14px; }
+@media (max-width: 767px) {
+  .context-entry-link { grid-template-columns: 1fr; gap: var(--space-1); }
+  .context-entry h2, .context-body h2, .context-article-header h1, .work-title-ja { font-size: 18px; line-height: 1.75; }
+  .context-article { gap: var(--space-5); }
+  .context-body section + section { margin-top: var(--space-5); }
+}

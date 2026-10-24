@@ -64,6 +64,18 @@
       },
       gallery: ["scene01", "scene02", "scene04", "scene05", "scene06"].map((name) => `assets/images/works/inverted-inversion/${name}.webp`),
     },
+    {
+      slug: "whitescape",
+      title: "Whitescape",
+      titleJa: "白景",
+      year: "2026",
+      category: "INSTALLATION",
+      duration: "2’14”",
+      vimeoId: "1239004104",
+      image: "assets/images/works/whitescape/scene01.webp",
+      caption: { ja: ["白という色そのものは直接何かを示しているわけではありません。特に映像における白とはただの光であるということができます。私は今回の作品において、10枚のディスプレイ上に投影される白を空間として現したいと考えました。いくつかのディスプレイはあるタイミングでは白い光しか表示されていません。それは単体ではただの光ですが、10枚のディスプレイの連関として捉えることで、そこに空間を感じ取ることができます。映像における白の美しさとはなんなのか、それを考える一つの契機となれば良いなと考えています。"] },
+      gallery: Array.from({ length: 6 }, (_, index) => `assets/images/works/whitescape/scene${String(index + 1).padStart(2, "0")}.webp`),
+    },
   ];
 
   const biography = [

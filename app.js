@@ -14,6 +14,7 @@
         <nav class="site-nav" aria-label="主要ナビゲーション">
           <a href="${routeTo("/")}" ${active === "work" ? 'aria-current="page"' : ""}>WORK</a>
           <a href="${routeTo("/about")}" ${active === "about" ? 'aria-current="page"' : ""}>ABOUT</a>
+          <a href="${routeTo("/context")}" ${active === "context" ? 'aria-current="page"' : ""}>CONTEXT</a>
           <a href="${routeTo("/contact")}" ${active === "contact" ? 'aria-current="page"' : ""}>CONTACT</a>
         </nav>
       </header>`;
@@ -80,7 +81,7 @@
     return pageShell(`
       <article class="work-detail">
         <header class="work-header">
-          <h1>${work.title}</h1>
+          <div><h1>${work.title}</h1>${work.titleJa ? `<p class="work-title-ja" lang="ja">${work.titleJa}</p>` : ""}</div>
           <dl class="work-meta">
             <div><dt>YEAR</dt><dd>${work.year}</dd></div>
             <div><dt>TYPE</dt><dd>${work.category}</dd></div>
@@ -121,6 +122,38 @@
         </div>
         <div class="bilingual-copy">${copyBlocks(data.profile)}</div>
       </section>`, "about");
+  }
+
+  const escapeText = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
+  const articles = [...(window.CONTEXT_ARTICLES || [])].sort((a, b) => b.date.localeCompare(a.date));
+  const articleDate = (date) => `<time datetime="${escapeText(date)}">${escapeText(date.replaceAll("-", "."))}</time>`;
+
+  function contextPage() {
+    return pageShell(`
+      <header class="page-heading"><h1>CONTEXT</h1><p lang="ja">制作と思考</p></header>
+      <div class="context-list">${articles.map((article) => `
+        <article class="context-entry">
+          <a class="context-entry-link" href="${routeTo(`/context/${article.slug}`)}">
+            ${articleDate(article.date)}
+            <h2 lang="ja">${escapeText(article.title)}</h2>
+          </a>
+        </article>`).join("")}</div>`, "context");
+  }
+
+  function contextArticlePage(article) {
+    return pageShell(`
+      <article class="context-article">
+        <header class="context-article-header">
+          <a class="label-en" href="${routeTo("/context")}">CONTEXT</a>
+          <h1 lang="ja">${escapeText(article.title)}</h1>
+          ${articleDate(article.date)}
+        </header>
+        <div class="context-body" lang="ja">${article.sections.map((section) => `
+          <section>${section.heading ? `<h2>${escapeText(section.heading)}</h2>` : ""}
+            ${section.paragraphs.map((paragraph) => `<p>${escapeText(paragraph)}</p>`).join("")}
+          </section>`).join("")}</div>
+        <a class="context-back label-en" href="${routeTo("/context")}">BACK TO CONTEXT</a>
+      </article>`, "context");
   }
 
   function field(name, en, ja, type = "text") {
@@ -200,6 +233,13 @@
     } else if (path === "/about") {
       app.innerHTML = aboutPage();
       document.title = "About — Kentaro Hashimoto";
+    } else if (path === "/context") {
+      app.innerHTML = contextPage();
+      document.title = "Context — Kentaro Hashimoto";
+    } else if (path.startsWith("/context/")) {
+      const article = articles.find((item) => path === `/context/${item.slug}`);
+      app.innerHTML = article ? contextArticlePage(article) : notFoundPage();
+      document.title = article ? `${article.title} — Kentaro Hashimoto` : "404 — Kentaro Hashimoto";
     } else if (path === "/contact") {
       app.innerHTML = contactPage();
       document.title = "Contact — Kentaro Hashimoto";
