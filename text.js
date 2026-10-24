@@ -1,5 +1,5 @@
 // Add articles here. Use a unique slug and an ISO publication date (YYYY-MM-DD).
-window.CONTEXT_ARTICLES = [
+window.TEXT_ARTICLES = [
   {
     slug: "flatness-and-fictional-space",
     title: "映像の平面性、虚構としての空間",
